@@ -4,8 +4,43 @@
   Home
 {% endblock titel %}
 
+{% block style %}
+  <link rel="stylesheet" href="/static/home.css">
+{% endblock style %}
+
 {% block main-body %}
   
-hello
-
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>My Tasks</h2>
+                <div style="max-height: 400px; overflow-y: auto;">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                    <ul class="list-group">
+                        <li class="list-group-item">Task 1 <input type="checkbox" class="float-right"></li>
+                        <li class="list-group-item">Task 2 <input type="checkbox" class="float-right"></li>
+                        <li class="list-group-item">Task 3 <input type="checkbox" class="float-right"></li>
+                        <li class="list-group-item">Task 3 <input type="checkbox" class="float-right"></li>
+                        <li class="list-group-item">Task 3 <input type="checkbox" class="float-right"></li>
+                        <li class="list-group-item">Task 3 <input type="checkbox" class="float-right"></li>
+                        <li class="list-group-item">Task 3 <input type="checkbox" class="float-right"></li>
+                        <li class="list-group-item">Task 3 <input type="checkbox" class="float-right"></li>
+                        <li class="list-group-item">Task 3 <input type="checkbox" class="float-right"></li>
+                        <li class="list-group-item">Task 3 <input type="checkbox" class="float-right"></li>
+                    </ul>
+                </div>
+                <button id="but" class="btn btn-primary mt-3" type="submit">Add Task</button>
+                <button id="but" class="btn btn-primary mt-3" type="submit">Complet Task</button>
+                <button id="but" class="btn btn-primary mt-3" type="submit">Delete Task</button>
+            </form>
+            </div>
+            <div class="col-md-4">
+                <h2>Overview</h2>
+                <p>Total Tasks: 13</p>
+                <p>Tasks Completed: 5</p>
+                <p>Tasks Pending: 8</p>
+            </div>
+        </div>
+    </div>
 {% endblock main-body %}
