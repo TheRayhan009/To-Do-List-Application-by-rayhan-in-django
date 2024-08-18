@@ -18,16 +18,11 @@
                     <form action="" method="post">
                         {% csrf_token %}
                     <ul class="list-group">
-                        <li class="list-group-item">Task 1 <input type="checkbox" class="float-right"></li>
-                        <li class="list-group-item">Task 2 <input type="checkbox" class="float-right"></li>
-                        <li class="list-group-item">Task 3 <input type="checkbox" class="float-right"></li>
-                        <li class="list-group-item">Task 3 <input type="checkbox" class="float-right"></li>
-                        <li class="list-group-item">Task 3 <input type="checkbox" class="float-right"></li>
-                        <li class="list-group-item">Task 3 <input type="checkbox" class="float-right"></li>
-                        <li class="list-group-item">Task 3 <input type="checkbox" class="float-right"></li>
-                        <li class="list-group-item">Task 3 <input type="checkbox" class="float-right"></li>
-                        <li class="list-group-item">Task 3 <input type="checkbox" class="float-right"></li>
-                        <li class="list-group-item">Task 3 <input type="checkbox" class="float-right"></li>
+                        {% for item in tasks %}
+                        <li class="list-group-item">{{forloop.counter}}. {{item.user_task}} <input type="checkbox" class="float-right"></li>
+                        {%empty%}
+                        <li class="list-group-item"><h5>No Task Have.</h5></li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <button id="but" class="btn btn-primary mt-3" type="submit">Add Task</button>
