@@ -9,6 +9,6 @@ class Users(models.Model):
     password=models.CharField(max_length=200)
     
 class Task(models.Model):
-    task_user_name=models.CharField(max_length=255)
+    task_user_name=models.CharField(max_length=255 ,null=True)
     user_task=models.TextField(max_length=5000)
     

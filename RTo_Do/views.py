@@ -12,15 +12,14 @@ def home(request):
         delete_task_button=request.POST.get("dtask")
         if delete_task_button=="True":
             for i in tasks:
+                check_task=request.POST.get(f"task{i.id}")
                 if check_task=="on":
-                    check_task=request.POST.get(f"task{i.id}")
                     s_task=Task.objects.filter(id=i.id)
                     s_task.delete()
         elif complet_task_button=="True":
             for i in tasks:
-                ##
+                check_task=request.POST.get(f"task{i.id}")
                 if check_task=="on":
-                    check_task=request.POST.get(f"task{i.id}")
                     s_task=Task.objects.filter(id=i.id)
                     s_task.delete()
         elif add_task_button=="True":
@@ -36,7 +35,14 @@ def home(request):
 
 def addtask(request):
     if  request.method=="POST":
-        task_name=request.POST.get("taskname")
+        User_task=request.POST.get("user_task")
+        uname=request.POST.get("username")
+        data=Task(
+            task_user_name=uname,
+            user_task=User_task,
+        )
+        data.save()
+        return redirect("/")
 
     return render(request,"addtask.html")
 
