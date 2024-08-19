@@ -9,7 +9,7 @@
 {% endblock style %}
 
 {% block main-body %}
-  
+  {% load static %}
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-8">
@@ -32,9 +32,9 @@
             </div>
             <div class="col-md-4">
                 <h2>Overview</h2>
-                <p>Total Tasks: 13</p>
-                <p>Tasks Completed: 5</p>
-                <p>Tasks Pending: 8</p>
+                <p>Total Tasks: {{numtasks}}</p>
+                <p>Tasks Completed: {{num_of_C_task}}</p>
+                <p>Tasks Pending: {{pintask}}</p>
             </div>
         </div>
     </div>
