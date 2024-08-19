@@ -67,20 +67,20 @@ h2 {
     text-align: center;
 }
 
-.btn:hover {
+#but:hover {
     background-color: #357ab8;
     transform: translateY(-2px);
 }
 
-.btn-primary {
+#but-primary {
     background-color: #4a90e2;
 }
 
-.btn-danger {
+#but-danger {
     background-color: #e74c3c;
 }
 
-.btn-success {
+#but-success {
     background-color: #2ecc71;
 }
 

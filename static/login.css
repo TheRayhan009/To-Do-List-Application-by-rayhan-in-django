@@ -1,0 +1,88 @@
+/* General Body Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Container Styles */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Header Styles */
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #4a90e2;
+    text-align: center;
+}
+
+/* Login Form Styles */
+.login-form {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 565px;
+    margin: 0 auto; /* Center the form */
+}
+
+/* Input Styles */
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    margin-bottom: 1rem; /* Space between inputs */
+}
+
+input:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
+
+/* Button Styles */
+#but {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    margin-top: 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #4a90e2;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    text-align: center;
+    width: 100%; /* Make button full width */
+}
+
+#but:hover {
+    background-color: #357ab8;
+    transform: translateY(-2px);
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .login-form {
+        padding: 1.5rem;
+    }
+
+    #but {
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+}
