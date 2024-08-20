@@ -84,23 +84,27 @@ def signin(request):
     return render(request,"signin.html")
 
 def login(request):
-    if request.method=="POST":
+    if request.method=="POST"          :
         logornot=True
         username=request.POST.get("username")
         password=request.POST.get("password")
         chak=Users.objects.get(username=username,password=password)
-        num_of_C_task=0
+        num_of_C_task=0                  
         request.session["cmptask"] = num_of_C_task
         if chak:
-            request.session["username"] = username
+            request.session["username"] =  username
             request.session["password"] = password
             request.session["logornot"] = logornot
         return redirect("/")
     return render(request,"login.html") 
 
 def logout(request):
-    Uname=request.session.get("username")
-    data=Task.objects.filter(task_user_name=Uname)
+    Uname=request.session.get("username" )
+    data=Task.objects.filter(task_user_name=Uname  )
     data.delete()
+    data=Users.objects.get(username=Uname)
+    data.T_task=0
+    data.C_task=0
+    data.save()
     request.session.flush()
     return redirect("/")

@@ -1,41 +1,46 @@
 {% extends "all.html" %}
 
 {% block titel %}
-  Home
+Home
 {% endblock titel %}
 
 {% block style %}
-  <link rel="stylesheet" href="/static/home.css">
+<link rel="stylesheet" href="/static/home.css">
 {% endblock style %}
 
 {% block main-body %}
-  {% load static %}
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-8">
-                <h2>{{Uname}}'s Tasks</h2>
-                <div style="max-height: 400px; overflow-y: auto;">
-                    <form action="" method="post">
-                        {% csrf_token %}
+{% load static %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{Uname}}'s Tasks</h2>
+            <div style="max-height: 400px; overflow-y: auto;">
+                <form action method="post">
+                    {% csrf_token %}
                     <ul class="list-group">
                         {% for item in tasks %}
-                        <li class="list-group-item">{{forloop.counter}}. {{item.user_task}} <input name="task{{item.id}}"  type="checkbox" class="float-right"></li>
+                        <li class="list-group-item">{{forloop.counter}}.
+                            {{item.user_task}} <input name="task{{item.id}}"
+                                type="checkbox" class="float-right"></li>
                         {%empty%}
                         <li class="list-group-item"><h5>No Task Have.</h5></li>
                         {% endfor %}
                     </ul>
                 </div>
-                <button name="atask" id="but" class="btn btn-primary mt-3" type="submit" value="True">Add Task</button>
-                <button name="ctask" id="but" class="btn btn-primary mt-3" type="submit" value="True">Complet Task</button>
-                <button name="dtask" id="but" class="btn btn-primary mt-3" type="submit" value="True">Delete Task</button>
+                <button name="atask" id="but" class="btn btn-primary mt-3"
+                    type="submit" value="True">Add Task</button>
+                <button name="ctask" id="but" class="btn btn-primary mt-3"
+                    type="submit" value="True">Complet Task</button>
+                <button name="dtask" id="but" class="btn btn-primary mt-3"
+                    type="submit" value="True">Delete Task</button>
             </form>
-            </div>
-            <div class="col-md-4">
-                <h2>Overview</h2>
-                <p>Total Tasks: {{numtasks}}</p>
-                <p>Tasks Completed: {{num_of_C_task}}</p>
-                <p>Tasks Pending: {{pintask}}</p>
-            </div>
+        </div>
+        <div class="col-md-4">
+            <h2>Overview</h2>
+            <p>Total Tasks: {{numtasks}}</p>
+            <p>Tasks Completed: {{num_of_C_task}}</p>
+            <p>Tasks Pending: {{pintask}}</p>
         </div>
     </div>
+</div>
 {% endblock main-body %}
