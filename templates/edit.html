@@ -1,0 +1,30 @@
+{% extends "all.html" %}
+
+{% block titel %}
+  Edit Task
+{% endblock titel %}
+
+{% block style %}
+  <link rel="stylesheet" href="/static/addtask.css">
+{% endblock style %}
+
+{% block main-body %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2>Edit Your Task</h2>
+            <div class="add-task-form">
+                <form action="/edittask/" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="hidden" name="task_id" value="{{ task_id }}">
+                        <label for="user_task">Edit Your Task:</label>
+                        <textarea id="user_task" name="user_edited_task" class="form-control" rows="5" placeholder="">{{main_task}}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3" id="but">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main-body %}

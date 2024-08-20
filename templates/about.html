@@ -1,0 +1,53 @@
+{% extends "all.html" %}
+
+{% block titel %}
+  About Page
+{% endblock titel %}
+
+{% block style %}
+  <link rel="stylesheet" href="/static/about.css">
+{% endblock style %}
+
+{% block main-body %}
+
+    <div class="container">
+        <header>
+            <h1>About This Page</h1>
+        </header>
+        
+        <section class="creator-info">
+            <h2>Developer Information</h2>
+            <div class="developer-details">
+                <img src="/static/p1.png" alt="Developer Photo" class="developer-photo">
+                <div class="details">
+                    <h3>Rayhan</h3>
+                    <p>Class: 9</p>
+                    <p>School: Feni Central High School</p>
+                    <p>Email: rayhanthestorymaker.com</p>
+                    <!-- <p>Contact: +880123456789</p> -->
+                    <a href="https://codeforces.com/profile/therayhan009"><p>Codeforces: therayhan009</p></a>
+                    <a href="https://github.com/TheRayhan009" ><p>GitHub: TheRayhan009</p></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-details">
+            <h2>About This Page</h2>
+            <p>This page was created to help users manage tasks efficiently. It allows users to:</p>
+            <ul>
+                <li>Add new tasks</li>
+                <li>Edit existing tasks</li>
+                <li>Mark tasks as complete</li>
+                <li>Delete tasks</li>
+            </ul>
+            <p>It is designed with a user-friendly interface to ensure that task management is quick and easy.</p>
+        </section>
+        
+        <section class="links">
+            <h2>Links</h2>
+            <p>GitHub Repository: <a href="https://github.com/TheRayhan009/To-Do-List-Application-by-rayhan-in-django" target="_blank">GitHub</a></p>
+            <p>Hosted at: <a href="/" target="_blank">Website</a></p>
+        </section>
+    </div>
+
+{% endblock main-body %}

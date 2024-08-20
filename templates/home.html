@@ -13,7 +13,18 @@ Home
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-8">
+            {% if log %}
+            {% if ala %}
+            <div class="alert alert-danger" role="alert">
+                You can only edit one task at a time.
+              </div>
+              {% endif %}
             <h2>{{Uname}}'s Tasks</h2>
+            <form class="form-inline" action="/" method="post">
+                {% csrf_token %}
+                <input name="UTsearch" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button name="searchbtn" id="search-btn" class="btn btn-outline-success my-2 my-sm-0" type="submit" value="True">Search</button>
+            </form>
             <div style="max-height: 400px; overflow-y: auto;">
                 <form action method="post">
                     {% csrf_token %}
@@ -22,17 +33,19 @@ Home
                         <li class="list-group-item">{{forloop.counter}}.
                             {{item.user_task}} <input name="task{{item.id}}"
                                 type="checkbox" class="float-right"></li>
-                        {%empty%}
-                        <li class="list-group-item"><h5>No Task Have.</h5></li>
+                        {% empty %}
+                        <li class="list-group-item"><h5>No Task Available.</h5></li>
                         {% endfor %}
                     </ul>
                 </div>
                 <button name="atask" id="but" class="btn btn-primary mt-3"
                     type="submit" value="True">Add Task</button>
                 <button name="ctask" id="but" class="btn btn-primary mt-3"
-                    type="submit" value="True">Complet Task</button>
+                    type="submit" value="True">Complete Task</button>
                 <button name="dtask" id="but" class="btn btn-primary mt-3"
                     type="submit" value="True">Delete Task</button>
+                <button name="etask" id="but" class="btn btn-primary mt-3"
+                type="submit" value="True">Edit Task</button>
             </form>
         </div>
         <div class="col-md-4">
@@ -41,6 +54,26 @@ Home
             <p>Tasks Completed: {{num_of_C_task}}</p>
             <p>Tasks Pending: {{pintask}}</p>
         </div>
+        {% else %}
+        <div class="col-md-12 text-center">
+            <h2>Welcome to Task Manager</h2>
+            <p>Please log in or sign up to manage your tasks.</p>
+            <a href="/login" class="btn btn-primary">Log In</a>
+            <a href="/signin" class="btn btn-secondary">Sign Up</a>
+
+            <div class="privacy-section mt-4">
+                <h3>Data Security and Privacy</h3>
+                <p>Your privacy and security are our top priorities. We implement robust measures to protect your personal information, including:</p>
+                <ul>
+                    <li>Encryption of sensitive data during transmission and storage.</li>
+                    <li>Regular security audits and updates to our systems.</li>
+                    <li>Strict access controls and authentication processes.</li>
+                    <li>Clear policies on data collection, usage, and sharing.</li>
+                </ul>
+                <p>If you have any questions or concerns about our privacy <a href="https://www.facebook.com/profile.php?id=100070570397043">Contact With Developer</a>.</p>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock main-body %}

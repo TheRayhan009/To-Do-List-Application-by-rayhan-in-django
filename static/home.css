@@ -23,6 +23,22 @@ h2 {
     text-align: center;
 }
 
+/* Search Form Styles */
+.form-inline {
+    display: flex;
+    justify-content: right;
+    /* margin-bottom: 1.5rem; */
+}
+
+.form-control {
+    width: 100%;
+    max-width: 200px; /* Adjust as needed */
+}
+
+#search-btn {
+    /* margin-left: 0.5rem; */
+}
+
 /* Task List Styles */
 .task-list {
     background-color: #ffffff;
@@ -112,34 +128,216 @@ h2 {
     animation: fadeIn 1s ease-out;
 }
 
-
-/* Overview Styles */
-.col-md-4 {
+/* Welcome Section Styles */
+.col-md-12 {
     background-color: #ffffff;
-    padding: 1rem;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* Prevent overflow */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 2rem;
+    margin-left: 0; /* Adjust for mobile view */
 }
 
-.col-md-4 p {
-    font-size: 1rem;
-    margin: 0.5rem 0;
-    transition: color 0.3s ease;
-}
-
-.col-md-4 p:hover {
-    color: #007bff;
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
+/* Mobile View Adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
     }
-    to {
-        opacity: 1;
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .task-list {
+        padding: 1rem;
+    }
+
+    .task-item {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    #but {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .overview p {
+        font-size: 1rem;
+    }
+
+    .col-md-8 {
+        margin: 0 auto; /* Center the column */
+        max-width: 100%; /* Ensure it doesn’t overflow */
+    }
+
+    .col-md-12 {
+        padding: 1rem;
+        margin: 0 auto; /* Center the column */
+        max-width: 100%; /* Ensure it doesn’t overflow */
+    }
+
+    .col-md-12 h2 {
+        font-size: 2rem;
+    }
+
+    .col-md-12 p {
+        font-size: 1rem;
+    }
+
+    .col-md-12 .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.75rem;
+    }
+}
+
+/* Mobile View for Login/Sign-Up */
+@media (max-width: 776px) {
+    .col-md-8 {
+        margin: 0 auto; /* Center the column */
+        max-width: 100%; /* Ensure it doesn’t overflow */
+    }
+
+    .col-md-12 {
+        padding: 1rem;
+    }
+
+    .col-md-12 h2 {
+        font-size: 2rem;
+    }
+
+    .col-md-12 p {
+        font-size: 1rem;
+    }
+
+    .col-md-12 .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .text-center {
+        margin-top: 50px;
+    }
+}
+
+.profile-section {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.profile-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #4a90e2;
+    margin-bottom: 1rem;
+}
+
+.profile-name {
+    font-size: 1.5rem;
+    color: #4a90e2;
+    margin-bottom: 0.5rem;
+}
+
+.profile-bio {
+    font-size: 1rem;
+    color: #666;
+    margin: 0;
+}
+
+/* Mobile View Adjustments */
+@media (max-width: 768px) {
+    .profile-section {
+        padding: 1rem;
+    }
+
+    .profile-photo {
+        width: 80px;
+        height: 80px;
+    }
+
+    .profile-name {
+        font-size: 1.2rem;
+    }
+
+    .profile-bio {
+        font-size: 0.9rem;
+    }
+}
+
+.privacy-section {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.privacy-section h3 {
+    font-size: 1.8rem;
+    color: #4a90e2;
+    margin-bottom: 1rem;
+}
+
+.privacy-section p {
+    font-size: 1rem;
+    color: #666;
+    margin: 0.5rem 0;
+}
+
+.privacy-section ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+}
+
+.privacy-section li {
+    font-size: 1rem;
+    color: #666;
+}
+
+.privacy-section a {
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.privacy-section a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile View Adjustments */
+@media (max-width: 768px) {
+    .privacy-section {
+        padding: 1rem;
+    }
+
+    .privacy-section h3 {
+        font-size: 1.5rem;
+    }
+
+    .privacy-section p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .privacy-section {
+        padding: 0.75rem;
+    }
+
+    .privacy-section h3 {
+        font-size: 1.2rem;
+    }
+
+    .privacy-section p {
+        font-size: 0.8rem;
     }
 }
