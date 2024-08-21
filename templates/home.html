@@ -30,9 +30,15 @@ Home
                     {% csrf_token %}
                     <ul class="list-group">
                         {% for item in tasks %}
-                        <li class="list-group-item">{{forloop.counter}}.
+                        {% if item.C_or_Not %}
+                        <li style="background-color: #49a956;" class="list-group-item">{{forloop.counter}}.
+                            {{item.user_task}}</li>
+                        {% else %}
+
+                        <li  class="list-group-item">{{forloop.counter}}.
                             {{item.user_task}} <input name="task{{item.id}}"
                                 type="checkbox" class="float-right"></li>
+                        {% endif %}
                         {% empty %}
                         <li class="list-group-item"><h5>No Task Available.</h5></li>
                         {% endfor %}
@@ -46,6 +52,8 @@ Home
                     type="submit" value="True">Delete Task</button>
                 <button name="etask" id="but" class="btn btn-primary mt-3"
                 type="submit" value="True">Edit Task</button>
+                <button name="rtask" id="but" class="btn btn-primary mt-3"
+                type="submit" value="True">Reset</button>
             </form>
         </div>
         <div class="col-md-4">

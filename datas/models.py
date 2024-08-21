@@ -12,4 +12,5 @@ class Users(models.Model):
 class Task(models.Model):
     task_user_name=models.CharField(max_length=255 ,null=True)
     user_task=models.TextField(max_length=5000)
+    C_or_Not=models.BooleanField(default=False,null=True)
     

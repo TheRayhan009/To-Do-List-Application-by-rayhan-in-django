@@ -12,6 +12,7 @@ def home(request):
             complet_task_button=request.POST.get("ctask")
             delete_task_button=request.POST.get("dtask")
             edit_task_button=request.POST.get("etask")
+            reset_task_button=request.POST.get("rtask")
             search_task_button=request.POST.get("searchbtn")
             if delete_task_button=="True":
                 for i in tasks:
@@ -31,8 +32,21 @@ def home(request):
                         data=Users.objects.get(username=Uname)
                         data.C_task=x+1
                         data.save()
-                        s_task=Task.objects.filter(id=i.id)
-                        s_task.delete()
+                        s_task=Task.objects.get(id=i.id)
+                        s_task.C_or_Not=True
+                        s_task.save()
+                result=Task.objects.filter(task_user_name=Uname)
+                pintask = Users.objects.get(username=Uname).T_task - Users.objects.get(username=Uname).C_task
+                ele={
+                    "tasks":result,
+                    "log":log,
+                    "Uname":Uname,
+                    "passw":passw,
+                    "num_of_C_task":Users.objects.get(username=Uname).C_task,
+                    "numtasks":Users.objects.get(username=Uname).T_task,
+                    "pintask":pintask,
+                }
+                return render(request, 'home.html',ele)
             elif add_task_button=="True":
                 x=Users.objects.get(username=Uname).T_task
                 data=Users.objects.get(username=Uname)
@@ -53,6 +67,8 @@ def home(request):
                     "pintask":pintask,
                 }
                 return render(request, 'home.html',ele)
+            elif reset_task_button=="True":
+                return redirect("/resettask")
             elif edit_task_button=="True":
                 v=[]
                 for i in tasks:
@@ -173,6 +189,31 @@ def edittask(request):
         return redirect("/")
     return render(request,"edit.html")
 
+
+def resettask(request):
+    Uname=request.session.get("username")
+    passw=request.session.get("password")
+    log=request.session.get("logornot")
+    if request.method=="POST":
+        Uname=request.session.get("username")
+        yes_buttom=request.POST.get("byes")
+        no_buttom=request.POST.get("bno")
+        if yes_buttom=="True":
+            data=Task.objects.filter(task_user_name=Uname)
+            user_data=Users.objects.get(username=Uname)
+            data.delete()
+            user_data.T_task=0
+            user_data.C_task=0
+            user_data.save()
+            return redirect("/")
+        elif  no_buttom=="True":
+            return redirect("/")
+    ele={
+        "log":log,
+        "Uname":Uname,
+        "passw":passw,
+    }
+    return render(request,"reset.html",ele)
 
 def logout(request):
     Uname=request.session.get("username" )

@@ -75,4 +75,24 @@ textarea.form-control{
     .offset-md-3 {
         margin-left: 10%;
     }
+}/* Media Queries for Mobile View */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem; /* Reduce padding for smaller screens */
+    }
+
+    .add-task-form {
+        padding: 1.5rem; /* Adjust padding for smaller screens */
+        width: 380px !important; /* Ensure the form is full width on mobile */
+    }
+
+    textarea.form-control {
+        height: 200px; 
+        width: 330px;
+    }
+
+    #but {
+        width: 100%; /* Make the button full width on mobile */
+        margin-bottom: 1rem; /* Add margin for spacing */
+    }
 }
