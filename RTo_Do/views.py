@@ -215,13 +215,30 @@ def resettask(request):
     }
     return render(request,"reset.html",ele)
 
-def logout(request):
-    Uname=request.session.get("username" )
-    data=Task.objects.filter(task_user_name=Uname)
-    data.delete()
-    data=Users.objects.get(username=Uname)
-    data.T_task=0
-    data.C_task=0
-    data.save()
-    request.session.flush()
-    return redirect("/")
+
+def logresettask(request):
+    Uname=request.session.get("username")
+    passw=request.session.get("password")
+    log=request.session.get("logornot")
+    if request.method=="POST":
+        Uname=request.session.get("username")
+        yes_buttom=request.POST.get("byes")
+        no_buttom=request.POST.get("bno")
+        if yes_buttom=="True":
+            data=Task.objects.filter(task_user_name=Uname)
+            user_data=Users.objects.get(username=Uname)
+            data.delete()
+            user_data.T_task=0
+            user_data.C_task=0
+            user_data.save()
+            request.session.flush()
+            return redirect("/")
+        elif no_buttom=="True":
+            request.session.flush()
+            return redirect("/")
+    ele={
+        "log":log,
+        "Uname":Uname,
+        "passw":passw,
+    }
+    return render(request,"logOutReset.html",ele)

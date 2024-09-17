@@ -26,8 +26,7 @@ urlpatterns = [
     path("login/",views.login,name="login"),
     path("signin/",views.signin,name="signin"),
     path("addtask/",views.addtask,name="addtask"),
-    path("logout/",views.logout,name="logout"),
     path("edittask/",views.edittask,name="edittask"),
     path("resettask/",views.resettask,name="resettask"),
-    # path("search/",views.search,name="search"),
+    path("logresettask/",views.logresettask,name="resettask"),
 ]

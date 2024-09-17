@@ -1,0 +1,23 @@
+{% extends "all.html" %}
+
+{% block titel %}
+  Log Out Task Reset?
+{% endblock titel %}
+
+{% block style %}
+  <link rel="stylesheet" href="/static/logOutReset.css">
+{% endblock style %}
+
+{% block main-body %}
+<div class="reset-container">
+    <h2>Are you sure you want to reset during log out?</h2>
+    <p>This action cannot be undone. Please confirm if you want to proceed with the reset.</p>
+    <form action="" method="post">
+        {% csrf_token %}
+    <div class="reset-buttons">
+        <button name="byes" id="confirm-reset" value="True">Yes, Reset</button>
+        <button name="bno" id="cancel-reset" value="True">No, Don't Reset </button>
+    </div>
+    </form>
+</div>
+{% endblock main-body %}
