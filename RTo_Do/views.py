@@ -103,17 +103,14 @@ def home(request):
         
         start_date = datetime.now()
         user_all_tasks=Task.objects.filter(task_user_name=Uname)
-        # print(user_all_tasks)
         deadLine=[]
         for l in user_all_tasks:
             user_last_time=l.EndTime
             user_last_date=l.EndDate
             user_last_date=user_last_date.replace("-","/")
             end_date = datetime.strptime(f"{user_last_date} {user_last_time}", "%Y/%m/%d %I:%M %p")
-            # print(start_date)
             time_difference = end_date - start_date
             total_seconds = int(((time_difference.total_seconds() / 60) / 60) / 24)
-            # print(total_seconds)
             deadLine.append(total_seconds)
         tasks_with_deadlines = zip(user_all_tasks, deadLine)
         ele={
