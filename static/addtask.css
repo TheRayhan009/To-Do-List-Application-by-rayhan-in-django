@@ -121,3 +121,48 @@ input[type="date"]:focus {
         font-size: 0.9rem;
     }
 }
+
+.time-input-group {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.time-input-group label {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.time-input-group input[type="time"] {
+    width: 100%;
+    max-width: 200px; /* Adjust as needed */
+    padding: 0.5rem;
+    font-size: 1rem;
+    color: #333;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+
+.time-input-group input[type="time"]:focus {
+    border-color: #4a90e2;
+    outline: none;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
+/* Mobile View Adjustments */
+@media (max-width: 768px) {
+    .time-input-group {
+        width: 100%;
+        max-width: 100%; /* Full width on mobile */
+    }
+
+    .time-input-group input[type="time"] {
+        font-size: 0.9rem;
+        padding: 0.4rem;
+    }
+}

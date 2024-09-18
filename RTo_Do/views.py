@@ -35,18 +35,7 @@ def home(request):
                         s_task=Task.objects.get(id=i.id)
                         s_task.C_or_Not=True
                         s_task.save()
-                result=Task.objects.filter(task_user_name=Uname)
-                pintask = Users.objects.get(username=Uname).T_task - Users.objects.get(username=Uname).C_task
-                ele={
-                    "tasks":result,
-                    "log":log,
-                    "Uname":Uname,
-                    "passw":passw,
-                    "num_of_C_task":Users.objects.get(username=Uname).C_task,
-                    "numtasks":Users.objects.get(username=Uname).T_task,
-                    "pintask":pintask,
-                }
-                return render(request, 'home.html',ele)
+                return redirect("/")
             elif add_task_button=="True":
                 x=Users.objects.get(username=Uname).T_task
                 data=Users.objects.get(username=Uname)
@@ -55,7 +44,30 @@ def home(request):
                 return redirect("/addtask")
             elif search_task_button=="True":
                 search_task=request.POST.get("UTsearch")
-                result=Task.objects.filter(user_task__icontains=search_task)
+                result=Task.objects.filter(user_task__icontains=search_task,task_user_name=Uname)
+                start_date = datetime.now()
+                user_all_tasks=Task.objects.filter(task_user_name=Uname)
+                deadLine_D=[]
+                deadLine_H=[]
+                deadLine_M=[]
+                deadLine_S=[]
+                for l in user_all_tasks:
+                    user_last_time=l.EndTime
+                    user_last_date=l.EndDate
+                    user_last_date=user_last_date.replace("-","/")
+                    end_date = datetime.strptime(f"{user_last_date} {user_last_time}", "%Y/%m/%d %I:%M %p")
+                    time_difference = end_date - start_date
+                    total_day = int(((time_difference.total_seconds() / 60) / 60) / 24)
+                    total_hour = int((time_difference.total_seconds() / 60) / 60)
+                    total_minute = int(time_difference.total_seconds() / 60)
+                    total_second = int(time_difference.total_seconds())
+                    deadLine_D.append(total_day)
+                    deadLine_H.append(total_hour)
+                    deadLine_M.append(total_minute)
+                    deadLine_S.append(total_second)
+                    
+                tasks_with_deadlines = zip(result, deadLine_D, deadLine_H, deadLine_M, deadLine_S)
+                
                 pintask = Users.objects.get(username=Uname).T_task - Users.objects.get(username=Uname).C_task
                 ele={
                     "tasks":result,
@@ -65,6 +77,7 @@ def home(request):
                     "num_of_C_task":Users.objects.get(username=Uname).C_task,
                     "numtasks":Users.objects.get(username=Uname).T_task,
                     "pintask":pintask,
+                    "tasks_with_deadlines":tasks_with_deadlines,
                 }
                 return render(request, 'home.html',ele)
             elif reset_task_button=="True":
@@ -99,20 +112,30 @@ def home(request):
                     }
                     return render(request, 'home.html',ele)
             return redirect("/")
+        result=Task.objects.filter(task_user_name=Uname)
         pintask = Users.objects.get(username=Uname).T_task - Users.objects.get(username=Uname).C_task
-        
         start_date = datetime.now()
         user_all_tasks=Task.objects.filter(task_user_name=Uname)
-        deadLine=[]
+        deadLine_D=[]
+        deadLine_H=[]
+        deadLine_M=[]
+        deadLine_S=[]
         for l in user_all_tasks:
             user_last_time=l.EndTime
             user_last_date=l.EndDate
             user_last_date=user_last_date.replace("-","/")
             end_date = datetime.strptime(f"{user_last_date} {user_last_time}", "%Y/%m/%d %I:%M %p")
             time_difference = end_date - start_date
-            total_seconds = int(((time_difference.total_seconds() / 60) / 60) / 24)
-            deadLine.append(total_seconds)
-        tasks_with_deadlines = zip(user_all_tasks, deadLine)
+            total_day = int(((time_difference.total_seconds() / 60) / 60) / 24)
+            total_hour = int((time_difference.total_seconds() / 60) / 60)
+            total_minute = int(time_difference.total_seconds() / 60)
+            total_second = int(time_difference.total_seconds())
+            deadLine_D.append(total_day)
+            deadLine_H.append(total_hour)
+            deadLine_M.append(total_minute)
+            deadLine_S.append(total_second)
+            
+        tasks_with_deadlines = zip(user_all_tasks, deadLine_D, deadLine_H, deadLine_M, deadLine_S)
         ele={
             "tasks":Task.objects.filter(task_user_name=Uname),
             "log":log,
@@ -121,10 +144,8 @@ def home(request):
             "num_of_C_task":Users.objects.get(username=Uname).C_task,
             "numtasks":Users.objects.get(username=Uname).T_task,
             "pintask":pintask,
-            "deadLine":deadLine,
             "tasks_with_deadlines":tasks_with_deadlines,
-            
-            
+        
         }
         return render(request, 'home.html',ele)
     else:
@@ -148,13 +169,16 @@ def addtask(request):
     if  request.method=="POST":
         User_task=request.POST.get("user_task")
         User_last_date=request.POST.get("enddate")
-        # print(User_last_date)
+        User_last_time=request.POST.get("endtime")
         uname=request.session.get("username")
+        time_24 = datetime.strptime(User_last_time, "%H:%M")
+        User_last_time = time_24.strftime("%I:%M %p")
         data=Task(
             task_user_name=uname,
             user_task=User_task,
             EndDate=User_last_date,
-            EndTime=datetime.now().strftime("%I:%M %p")
+            EndTime=User_last_time,
+            
         )
         data.save()
         return redirect("/")

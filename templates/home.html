@@ -32,16 +32,34 @@ Home
                 <form action method="post">
                     {% csrf_token %}
                     <ul class="list-group">
-                        {% for item , deadLine in tasks_with_deadlines %}
+                        {% for item , deadLine_D, deadLine_H, deadLine_M, deadLine_S in tasks_with_deadlines %}
                         {% if item.C_or_Not %}
                         <li style="background-color: #49a956;" class="list-group-item">{{forloop.counter}}.
-                            {{item.user_task}}</li>
+                            {{item.user_task}} <span class="task-endtime" style="color: #49a956;">Tasks completed</span> 
+                        </li>
                         {% else %}
-
+                        {% if deadLine_S < 0 %}
+                        <li style="background-color: #b93d39;" class="list-group-item">
+                            {{ forloop.counter }}. {{ item.user_task }} 
+                            <span class="task-endtime">Time limit exceeded</span>
+                            <input name="task{{item.id}}" type="checkbox" class="float-right">
+                        </li>
+                        {% else %}
                         <li class="list-group-item">
                             {{forloop.counter}}. {{item.user_task}}
-                            <span class="task-endtime">{{deadLine}}</span> 
+                            {% if deadLine_D > 0 %} 
+                            <span class="task-endtime">{{deadLine_D}}d</span> 
+                            {% elif deadLine_H > 0 %}
+                            <span class="task-endtime">{{deadLine_H}}h</span>
+                            {% elif deadLine_M > 0 %}
+                            <span class="task-endtime">{{deadLine_M}}m</span>
+                            {% elif deadLine_s > 0 %}
+                            <span class="task-endtime">{{deadLine_S}}s</span>
+                            <!-- {% else %}
+                            <span class="task-endtime">Time limit exceeded<span> -->
+                            {% endif %}
                             <input name="task{{item.id}}" type="checkbox" class="float-right">
+                            {% endif %}
                         </li>
                         {% endif %}
                         {% empty %}
