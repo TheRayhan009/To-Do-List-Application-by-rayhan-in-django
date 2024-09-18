@@ -41,7 +41,7 @@ Home
                         {% if deadLine_S < 0 %}
                         <li style="background-color: #b93d39;" class="list-group-item">
                             {{ forloop.counter }}. {{ item.user_task }} 
-                            <span class="task-endtime">Time limit exceeded</span>
+                            <span class="task-endtime">Time limit Exceeded</span>
                             <input name="task{{item.id}}" type="checkbox" class="float-right">
                         </li>
                         {% else %}
@@ -53,10 +53,10 @@ Home
                             <span class="task-endtime">{{deadLine_H}}h</span>
                             {% elif deadLine_M > 0 %}
                             <span class="task-endtime">{{deadLine_M}}m</span>
-                            {% elif deadLine_s > 0 %}
+                            {% elif deadLine_S > 0 %}
                             <span class="task-endtime">{{deadLine_S}}s</span>
-                            <!-- {% else %}
-                            <span class="task-endtime">Time limit exceeded<span> -->
+                            {% else %}
+                            <span class="task-endtime">Time limit exceeded<span>
                             {% endif %}
                             <input name="task{{item.id}}" type="checkbox" class="float-right">
                             {% endif %}
