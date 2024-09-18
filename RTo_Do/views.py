@@ -1,6 +1,6 @@
 from django.shortcuts import render ,redirect
 from  datas.models import Task,Users
-
+from datetime import datetime
 def home(request):
     log=request.session.get("logornot")
     if log:
@@ -100,6 +100,22 @@ def home(request):
                     return render(request, 'home.html',ele)
             return redirect("/")
         pintask = Users.objects.get(username=Uname).T_task - Users.objects.get(username=Uname).C_task
+        
+        start_date = datetime.now()
+        user_all_tasks=Task.objects.filter(task_user_name=Uname)
+        # print(user_all_tasks)
+        deadLine=[]
+        for l in user_all_tasks:
+            user_last_time=l.EndTime
+            user_last_date=l.EndDate
+            user_last_date=user_last_date.replace("-","/")
+            end_date = datetime.strptime(f"{user_last_date} {user_last_time}", "%Y/%m/%d %I:%M %p")
+            # print(start_date)
+            time_difference = end_date - start_date
+            total_seconds = int(((time_difference.total_seconds() / 60) / 60) / 24)
+            # print(total_seconds)
+            deadLine.append(total_seconds)
+        tasks_with_deadlines = zip(user_all_tasks, deadLine)
         ele={
             "tasks":Task.objects.filter(task_user_name=Uname),
             "log":log,
@@ -108,6 +124,10 @@ def home(request):
             "num_of_C_task":Users.objects.get(username=Uname).C_task,
             "numtasks":Users.objects.get(username=Uname).T_task,
             "pintask":pintask,
+            "deadLine":deadLine,
+            "tasks_with_deadlines":tasks_with_deadlines,
+            
+            
         }
         return render(request, 'home.html',ele)
     else:
@@ -130,10 +150,14 @@ def addtask(request):
     log=request.session.get("logornot")
     if  request.method=="POST":
         User_task=request.POST.get("user_task")
+        User_last_date=request.POST.get("enddate")
+        # print(User_last_date)
         uname=request.session.get("username")
         data=Task(
             task_user_name=uname,
             user_task=User_task,
+            EndDate=User_last_date,
+            EndTime=datetime.now().strftime("%I:%M %p")
         )
         data.save()
         return redirect("/")

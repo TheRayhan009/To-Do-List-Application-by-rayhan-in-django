@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.utils import timezone
+from datetime import datetime
 # Create your models here.
 
 class Users(models.Model):
@@ -11,6 +12,10 @@ class Users(models.Model):
     T_task=models.IntegerField(default=0,null=True)
 class Task(models.Model):
     task_user_name=models.CharField(max_length=255 ,null=True)
-    user_task=models.TextField(max_length=5000)
+    user_task=models.TextField(null=True ,max_length=5000)
     C_or_Not=models.BooleanField(default=False,null=True)
+    EndDate = models.CharField(max_length=55 ,null=True)
+    EndTime = models.CharField(max_length=55 ,null=True)
+
+
     

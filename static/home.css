@@ -343,3 +343,19 @@ h2 {
         font-size: 0.8rem;
     }
 }
+
+.list-group-item {
+    display: flex;
+    align-items: center;
+}
+
+.task-endtime {
+    font-size: 0.9rem;
+    color: #e74c3c;
+    font-weight: bold;
+    padding: 2px 4px;
+    background-color: #f9eaea;
+    border-radius: 3px;
+    margin-left: auto;
+    margin-right: 5px;
+}

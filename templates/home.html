@@ -32,15 +32,18 @@ Home
                 <form action method="post">
                     {% csrf_token %}
                     <ul class="list-group">
-                        {% for item in tasks %}
+                        {% for item , deadLine in tasks_with_deadlines %}
                         {% if item.C_or_Not %}
                         <li style="background-color: #49a956;" class="list-group-item">{{forloop.counter}}.
                             {{item.user_task}}</li>
                         {% else %}
 
-                        <li  class="list-group-item">{{forloop.counter}}.
-                            {{item.user_task}} <input name="task{{item.id}}"
-                                type="checkbox" class="float-right"></li>
+                        <li class="list-group-item">
+                            {{forloop.counter}}. {{item.user_task}}
+                            <span class="task-endtime">{{deadLine}}</span> 
+                            <input name="task{{item.id}}" type="checkbox" class="float-right">
+                            <!-- {{deadLine}} -->
+                        </li>
                         {% endif %}
                         {% empty %}
                         <li class="list-group-item"><h5>No Task Available.</h5></li>
