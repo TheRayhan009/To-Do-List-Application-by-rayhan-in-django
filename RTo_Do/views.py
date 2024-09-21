@@ -1,6 +1,8 @@
 from django.shortcuts import render ,redirect
 from  datas.models import Task,Users
 from datetime import datetime
+from django.utils.html import strip_tags
+from django.core.mail import send_mail
 def home(request):
     log=request.session.get("logornot")
     if log:
@@ -287,3 +289,41 @@ def logresettask(request):
         "passw":passw,
     }
     return render(request,"logOutReset.html",ele)
+
+def send_e_mail(self):
+    tasks = Task.objects.filter(C_or_Not=False)
+    user_l=[]
+    for task in tasks:
+        if task.task_user_name not in user_l:
+            user_l.append(task.task_user_name)
+            user = Users.objects.get(username=task.task_user_name)
+            subject = 'Task Reminder'
+            message = f'''
+            <html>
+            <body style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px;">
+                <h1>------------------------------------- R-TO-DO -----------------------------------</h1>
+                <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+                    <h2 style="color: #4CAF50;">Task Reminder</h2>
+                    <p>Hi <strong>{user.Fname}</strong>,</p>
+                    <p>You have a pending task:</p>
+                    <p style="background-color: #f3f3f3; padding: 10px; border-left: 4px solid #4CAF50;">
+                        <strong>{task.user_task}</strong>
+                    </p>
+                    <p><strong>Deadline:</strong> {task.EndDate} at {task.EndTime}</p>
+                    <p>Please complete it as soon as possible!</p>
+                    
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="/static/l1.png"alt="Reminder Image" style="width: 100%; max-width: 500px; border-radius: 8px;">
+                    </div>
+                    
+                    <hr style="border-top: 1px solid #ddd; margin: 20px 0;">
+                    <p style="text-align: center; font-size: 12px; color: #888;"><br>This is an automated reminder from your Task Manager</br></p>
+                </div>
+            </body>
+            </html>
+            
+            '''
+            email_from = 'therayhan009@gmail.com'
+            recipient_list = [user.Email]
+            send_mail(subject, strip_tags(message), email_from, recipient_list,fail_silently=False)
+    return redirect("/about")
