@@ -16,6 +16,4 @@ class Task(models.Model):
     C_or_Not=models.BooleanField(default=False,null=True)
     EndDate = models.CharField(max_length=55 ,null=True)
     EndTime = models.CharField(max_length=55 ,null=True)
-
-
-    
+    # priority = models.CharField(max_length=10, choices=[('low', 'Low'), ('medium', 'Medium'), ('high', 'High')], default='low')
