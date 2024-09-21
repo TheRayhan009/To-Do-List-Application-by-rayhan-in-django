@@ -40,7 +40,7 @@ Home
                         {% else %}
                         {% if deadLine_S < 0 %}
                         <li style="background-color: #b93d39;" class="list-group-item">
-                            {{ forloop.counter }}. {{ item.user_task }} 
+                            <p>{{ forloop.counter }}. {{ item.user_task }} </p>
                             <span class="task-endtime">Time limit Exceeded</span>
                             <input name="task{{item.id}}" type="checkbox" class="float-right">
                         </li>

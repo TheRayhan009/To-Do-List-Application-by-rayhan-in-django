@@ -10,6 +10,9 @@ class Users(models.Model):
     password=models.CharField(max_length=200)
     C_task=models.IntegerField(default=0,null=True)
     T_task=models.IntegerField(default=0,null=True)
+    
+    def __str__(self):
+        return self.username
 class Task(models.Model):
     task_user_name=models.CharField(max_length=255 ,null=True)
     user_task=models.TextField(null=True ,max_length=5000)
