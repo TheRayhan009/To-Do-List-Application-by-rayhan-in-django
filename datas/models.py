@@ -13,6 +13,7 @@ class Users(models.Model):
     
     def __str__(self):
         return self.username
+    
 class Task(models.Model):
     task_user_name=models.CharField(max_length=255 ,null=True)
     user_task=models.TextField(null=True ,max_length=5000)
