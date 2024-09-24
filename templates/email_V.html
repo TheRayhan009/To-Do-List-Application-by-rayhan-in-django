@@ -1,0 +1,35 @@
+{% extends "all.html" %}
+
+{% block titel %}
+  Email Verification
+{% endblock titel %}
+
+{% block style %}
+  <link rel="stylesheet" href="/static/email_V.css">
+{% endblock style %}
+
+{% block main-body %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                Email Verification Code is not right!!.
+              </div>
+            {% endif %}
+            <h2>Email Verification</h2>
+            <div class="verification-form">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="verification-code">Verification Code:</label>
+                        <input type="text" id="verification-code" name="verification_code" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3" id="but">Verify</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main-body %}

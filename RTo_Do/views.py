@@ -1,6 +1,10 @@
 from django.shortcuts import render ,redirect
 from  datas.models import Task,Users
 from datetime import datetime
+from django.core.mail import send_mail ,EmailMultiAlternatives
+from django.utils.html import strip_tags
+import random
+
 def home(request):
     log=request.session.get("logornot")
     if log:
@@ -196,17 +200,74 @@ def signin(request):
         uname=request.POST.get("username")
         upass=request.POST.get("password")
         uemail=request.POST.get("email")
+        code = random.randint(100000,999999)
         
-        data=Users(
-            Fname=fname,
-            Lname=lname,
-            username=uname,
-            password=upass,
-            Email=uemail,
-        )
-        data.save()
-        return redirect("/login")
+        request.session['fname'] = fname
+        request.session['lname'] = lname
+        request.session['uname'] = uname
+        request.session['upass'] = upass
+        request.session['uemail'] = uemail
+        request.session['code'] = code
+        
+        subject = 'R-TO-DO Email Verification.'
+        message = f'''
+    <html>
+    <body style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px;">
+        <h1 style="text-align: center; color: #4CAF50;">R-TO-DO Email Verification</h1>
+        <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+            <h2 style="color: #4CAF50; text-align: center;">Verify Your Email Address</h2>
+            <p>Hi <strong>{fname} {lname}</strong>,</p>
+            <p>Thank you for signing up! Please use the verification code below to verify your email address:</p>
+            
+            <div style="text-align: center; margin: 20px 0;">
+                <p style="background-color: #f3f3f3; padding: 15px; border-left: 4px solid #4CAF50; font-size: 24px; font-weight: bold; letter-spacing: 5px;">
+                    {code}
+                </p>
+            </div>
+            
+            <p style="text-align: center;">If you didn’t request this, you can ignore this email.</p>
+            <p style="text-align: center;">This code will expire in 30 minutes.</p>
+            
+            <hr style="border-top: 1px solid #ddd; margin: 20px 0;">
+            <p style="text-align: center; font-size: 12px; color: #888;">This is an automated email from R-TO-DO. Please do not reply.</p>
+        </div>
+    </body>
+    </html>
+    '''
+
+        email_from = 'therayhan009@gmail.com'
+        recipient_list = [uemail]
+        email = EmailMultiAlternatives(subject, strip_tags(message), email_from, recipient_list)
+        email.attach_alternative(message, "text/html")
+        email.send(fail_silently=False)
+        
+        return redirect('/email-verification-code')
     return render(request,"signin.html")
+
+def email_verification(request):
+    fname=request.session.get("fname")
+    lname=request.session.get("lname")
+    uname=request.session.get("uname")
+    upass=request.session.get("upass")
+    uemail=request.session.get("uemail")
+    code=request.session.get("code")
+    error=False
+    if request.method == "POST":
+        error=True
+        entered_code=request.POST.get("verification_code")
+        if str(entered_code)==str(code):
+            del request.session['code']
+            data=Users(
+                    Fname=fname,
+                    Lname=lname,
+                    username=uname,
+                    password=upass,
+                    Email=uemail,
+                )
+            data.save()
+            return redirect("/login")
+    return render(request,"email_V.html",{"error":error})
+
 
 def login(request):
     if request.method=="POST":

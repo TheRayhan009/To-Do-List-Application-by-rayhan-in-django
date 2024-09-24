@@ -22,7 +22,6 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",views.home,name="home"),
-    # path("admin-send-e-mail-admin/",views.send_e_mail,name="send_e_mail"),
     path("about/",views.about,name="about"),
     path("login/",views.login,name="login"),
     path("signin/",views.signin,name="signin"),
@@ -30,4 +29,5 @@ urlpatterns = [
     path("edittask/",views.edittask,name="edittask"),
     path("resettask/",views.resettask,name="resettask"),
     path("logresettask/",views.logresettask,name="resettask"),
+    path("email-verification-code/",views.email_verification,name="email_verification")
 ]
